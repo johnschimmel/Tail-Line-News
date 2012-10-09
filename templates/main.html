@@ -10,12 +10,25 @@
 	<!-- left column -->
 	<div class="span6">
 		<h3>Submitted Pizza Places:</h3>
-		
 		{% for place in places %}
-			<h4>{{ place.name }}</h4>
-			<p>in {{ place.city }}</p>
+		<div class="span4">
+			<h4>{{ loop.index }}. {{ place.name }}</h4>
+			<p>in {{ place.city }} <i class="icon-thumbs-up"></i>{{place.likes}}</p>
+		</div>
+		<div class="span1">
+			<form method="POST" action="/like">
+				<input type="hidden" name="name" value="{{ place.name }}">
+				<input type="hidden" name="city" value="{{ place.city }}">
+				<button type="submit" class="btn btn-mini"><i class="icon-thumbs-up"></i></button>
+			</form>
+			<form method="POST" action="/dislike">
+				<input type="hidden" name="name" value="{{ place.name }}">
+				<input type="hidden" name="city" value="{{ place.city }}">
+				<button type="submit" class="btn btn-mini"><i class="icon-thumbs-down"></i></button>
+			</form>
+		</div>
+
 		{% endfor %}
-		
 	</div>
 
 	<div class="span6">

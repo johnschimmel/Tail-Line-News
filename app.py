@@ -36,6 +36,7 @@ def index():
 		place = models.Place()
 		place.name = request.form.get('name','none')
 		place.city = request.form.get('city','none')
+		place.likes = 1
 
 		place.save()
 
@@ -44,11 +45,31 @@ def index():
 	else:
 		# render the template
 		templateData = {
-			'places' : models.Place.objects(),
+			'places' : models.Place.objects.order_by('-likes'),
 			'form' : place_form
 		}
 
 		return render_template("main.html", **templateData)
+
+@app.route("/like", methods=['POST'])
+def like():
+	if request.method == "POST":
+		post_name = request.form.get('name','none')
+		post_city = request.form.get('city','none')
+		like_place = models.Place.objects(name = post_name, city = post_city)
+		like_place.update(inc__likes=1)
+		return redirect('/')
+		
+@app.route("/dislike", methods=['POST'])
+def dislike():
+	if request.method == "POST":
+		post_name = request.form.get('name','none')
+		post_city = request.form.get('city','none')
+		like_place = models.Place.objects(name = post_name, city = post_city)
+		like_place.update(dec__likes=1)
+		return redirect('/')
+
+
 
 @app.errorhandler(404)
 def page_not_found(error):

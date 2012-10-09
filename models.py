@@ -8,6 +8,8 @@ class Place(Document):
 
 	name = StringField(max_length=120, required=True, verbose_name="Pizza Place:", help_text="Please enter the name:")
 	city = StringField(max_length=120, required=True, verbose_name="City:", help_text="Please enter the city name:")
+	likes = IntField()
+	
 	
 PlaceForm = model_form(Place)
 
