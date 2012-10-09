@@ -9,8 +9,7 @@
 
 	<!-- left column -->
 	<div class="span6">
-		<h3>Top Five Submitted Pizza Places:</h3>
-		<a href="/all">View All</a>
+		<h3>Top Submitted Pizza Places:</h3>
 		{% for place in places %}
 		<div class="span4">
 			<h4>{{ loop.index }}. {{ place.name }}</h4>

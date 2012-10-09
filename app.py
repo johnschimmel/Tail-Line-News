@@ -45,11 +45,39 @@ def index():
 	else:
 		# render the template
 		templateData = {
-			'places' : models.Place.objects.order_by('-likes'),
+			'places' : models.Place.objects.order_by('-likes').limit(5),
 			'form' : place_form
 		}
 
 		return render_template("main.html", **templateData)
+
+
+@app.route("/all", methods=['GET','POST'])
+def index_all():
+
+	# get Idea form from models.py
+	place_form = models.PlaceForm(request.form)
+	
+	if request.method == "POST" and place_form.validate():
+	
+		# get form data - create new idea
+		place = models.Place()
+		place.name = request.form.get('name','none')
+		place.city = request.form.get('city','none')
+		place.likes = 1
+
+		place.save()
+
+		return redirect('/')
+
+	else:
+		# render the template
+		templateData = {
+			'places' : models.Place.objects.order_by('-likes'),
+			'form' : place_form
+		}
+
+		return render_template("main-all.html", **templateData)
 
 @app.route("/like", methods=['POST'])
 def like():
