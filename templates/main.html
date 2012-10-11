@@ -8,53 +8,33 @@
 <div class="row">
 
 	<!-- left column -->
-	<div class="span6">
-		<h3>Top Five Submitted Pizza Places:</h3>
-		<a href="/all">View All</a>
-		{% for place in places %}
+	<div class="span12">
+		{% for thisPrompt in prompts %}
+		<h1>{{thisPrompt.promptText}}</h1>
+		<form method="POST" action="/">
+		<input type="text" name="response">
+		<input type="hidden" name="id" value="{{thisPrompt.id}}">
+		<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		{% for thisResponse in thisPrompt.responses %}
 		<div class="span4">
-			<h4>{{ loop.index }}. {{ place.name }}</h4>
-			<p>in {{ place.city }} <i class="icon-thumbs-up"></i>{{place.likes}}</p>
+			<h4>{{ thisResponse.responseText }}</h4>
+			<p><i class="icon-thumbs-up"></i>{{thisResponse.likes}}</p>
 		</div>
 		<div class="span1">
 			<form method="POST" action="/like">
-				<input type="hidden" name="name" value="{{ place.name }}">
-				<input type="hidden" name="city" value="{{ place.city }}">
+				<input type="hidden" name="name" value="{{ thisResponse.id }}">
 				<button type="submit" class="btn btn-mini"><i class="icon-thumbs-up"></i></button>
 			</form>
 			<form method="POST" action="/dislike">
-				<input type="hidden" name="name" value="{{ place.name }}">
-				<input type="hidden" name="city" value="{{ place.city }}">
+				<input type="hidden" name="name" value="{{ thisResponse.id }}">
 				<button type="submit" class="btn btn-mini"><i class="icon-thumbs-down"></i></button>
 			</form>
 		</div>
 		{% endfor %}
+		{% endfor %}
 	
 	</div>
-	<div class="span6">
-		
-
-		<form method="POST" action="/">
-			<legend><h3>Enter The Best Pizza Place Ever</h3></legend>
-			
-			{{ form.name.label(class='myLabelCssClass') }}
-			{{ form.name(class='myTextboxCssClass', type='textarea') }}
-			{{ render_error(form.name) }}  {# render_error inside _form_helpers.html #}
-			<br />
-			<br />
-			
-
-			{{ form.city.label(class='myLabelCssClass') }}
-			{{ form.city(class='myTextboxCssClass', type='textarea') }}
-			{{ render_error(form.city) }}  {# render_error inside _form_helpers.html #}
-			<br />
-			<br />
-			<button type="submit" class="btn btn-primary">Add Pizza Place</button>
-		</form>
-	</div>
-
-	
-
 </div>
 
 {% endblock %}

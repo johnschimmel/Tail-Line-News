@@ -1,0 +1,27 @@
+{% from "_form_helpers.html" import render_error, render_textarea %}
+{% extends "layout/main.html" %}
+
+
+{% block body %}
+
+
+<div class="row">
+
+	<!-- left column -->
+	<div class="span12">
+		<div class="span1">
+			<form method="POST" action="">
+				<input type="text" name="prompt" size="60">
+				<button type="submit" class="btn btn-mini">Add</i></button>
+			</form>
+		</div>
+	
+	</div>	
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

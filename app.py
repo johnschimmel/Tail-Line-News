@@ -27,74 +27,58 @@ app.logger.debug("Connecting to MongoLabs")
 @app.route("/", methods=['GET','POST'])
 def index():
 
-	# get Idea form from models.py
-	place_form = models.PlaceForm(request.form)
+	if request.method == "POST":
 	
-	if request.method == "POST" and place_form.validate():
-	
-		# get form data - create new idea
-		place = models.Place()
-		place.name = request.form.get('name','none')
-		place.city = request.form.get('city','none')
-		place.likes = 1
+		# get form data - create new response
+		promptID = request.form.get('id','none')
+		prompt = models.Prompt.objects.get(id=promptID)
+		response = models.Response()
+		response.responseText = request.form.get('response','none')
+		response.likes = 1
 
-		place.save()
+		prompt.responses.append(response)
+
+		prompt.save()
 
 		return redirect('/')
 
 	else:
 		# render the template
 		templateData = {
-			'places' : models.Place.objects.order_by('-likes').limit(5),
-			'form' : place_form
+			'prompts' : models.Prompt.objects.limit(1)
 		}
 
 		return render_template("main.html", **templateData)
 
 
-@app.route("/all", methods=['GET','POST'])
-def index_all():
-
-	# get Idea form from models.py
-	place_form = models.PlaceForm(request.form)
+@app.route("/addprompt", methods=['GET','POST'])
+def addprompt():
 	
-	if request.method == "POST" and place_form.validate():
-	
+	if request.method == "POST":
 		# get form data - create new idea
-		place = models.Place()
-		place.name = request.form.get('name','none')
-		place.city = request.form.get('city','none')
-		place.likes = 1
-
-		place.save()
-
+		prompt = models.Prompt()
+		prompt.promptText = request.form.get('prompt','none')
+		prompt.save()
 		return redirect('/')
 
 	else:
 		# render the template
-		templateData = {
-			'places' : models.Place.objects.order_by('-likes'),
-			'form' : place_form
-		}
-
-		return render_template("main-all.html", **templateData)
+		return render_template("newprompt.html")
 
 @app.route("/like", methods=['POST'])
 def like():
 	if request.method == "POST":
-		post_name = request.form.get('name','none')
-		post_city = request.form.get('city','none')
-		like_place = models.Place.objects(name = post_name, city = post_city)
-		like_place.update(inc__likes=1)
+		responseID = request.form.get('id','none')
+		like_response = models.Prompt.Response.objects.get(response=responseID)
+		like_response.update(inc__likes=1)
 		return redirect('/')
 		
 @app.route("/dislike", methods=['POST'])
 def dislike():
 	if request.method == "POST":
-		post_name = request.form.get('name','none')
-		post_city = request.form.get('city','none')
-		like_place = models.Place.objects(name = post_name, city = post_city)
-		like_place.update(dec__likes=1)
+		responseID = request.form.get('id','none')
+		like_response = models.Prompt.Response.objects.get(id=responseID)
+		like_response.update(dec__likes=1)
 		return redirect('/')
 
 
