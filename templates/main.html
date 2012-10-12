@@ -14,23 +14,20 @@
 		<form method="POST" action="/">
 		<p class="prompt">{{thisPrompt.promptText}} <input type="text" id="response" name="response" class="blank">.</p>
 		<input type="hidden" name="id" value="{{thisPrompt.id}}">
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<!--<button type="submit" class="btn btn-primary">Submit</button>-->
 		<script>document.getElementById('response').focus()</script>
 		</form>
 		{% for thisResponse in thisPrompt.responses %}
 		<div class="span4">
-			<h4>{{ thisResponse.responseText }}</h4>
-			<p><i class="icon-thumbs-up"></i>{{thisResponse.likes}}</p>
+			<p>{{ thisResponse.responseText }}
+			<i class="icon-thumbs-up"></i>{{thisResponse.likes}}</p>
+		<div class="btn-group btn-group-vertical">
+			<form method="POST" action="/thumb">
+				<input type="hidden" name="id" value="{{thisPrompt.id}}">
+				<input type="hidden" name="response" value="{{ thisResponse.responseText }}">
+				<button type="submit" name="do" value="like" class="btn btn-mini"><i class="icon-thumbs-up"></i></button><button type="submit" name="do" value="dislike" class="btn btn-mini"><i class="icon-thumbs-down"></i></button>
+			</form>
 		</div>
-		<div class="span1">
-			<form method="POST" action="/like">
-				<input type="hidden" name="name" value="{{ thisResponse.id }}">
-				<button type="submit" class="btn btn-mini"><i class="icon-thumbs-up"></i></button>
-			</form>
-			<form method="POST" action="/dislike">
-				<input type="hidden" name="name" value="{{ thisResponse.id }}">
-				<button type="submit" class="btn btn-mini"><i class="icon-thumbs-down"></i></button>
-			</form>
 		</div>
 		{% endfor %}
 		{% endfor %}

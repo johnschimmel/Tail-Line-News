@@ -65,23 +65,18 @@ def addprompt():
 		# render the template
 		return render_template("newprompt.html")
 
-@app.route("/like", methods=['POST'])
-def like():
+@app.route("/thumb", methods=['POST'])
+def thumb():
 	if request.method == "POST":
-		responseID = request.form.get('r','none')
-		like_response = models.Prompt.Response.objects.get(response=responseID)
-		like_response.update(inc__likes=1)
+		promptID = request.form.get('id','none')
+		prompt = models.Prompt.objects.get(id=promptID)
+		postResponseText = request.form.get('response','none')
+		like_response = prompt.responses.objects.get(responseText=postResponseText)
+		if request.form.get('do') == 'like':
+			like_response.update(inc__likes=1)
+		if request.form.get('do') == 'dislike':
+			like_response.update(dec__likes=1)
 		return redirect('/')
-		
-@app.route("/dislike", methods=['POST'])
-def dislike():
-	if request.method == "POST":
-		responseID = request.form.get('id','none')
-		like_response = models.Prompt.Response.objects.get(id=responseID)
-		like_response.update(dec__likes=1)
-		return redirect('/')
-
-
 
 @app.errorhandler(404)
 def page_not_found(error):
