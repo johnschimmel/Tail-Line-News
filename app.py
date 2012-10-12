@@ -40,7 +40,12 @@ def index():
 
 		prompt.save()
 
-		return redirect('/')
+		templateData = {
+			'prompts' : models.Prompt.objects.limit(1),
+			'response' : request.form.get('response','none')
+		}
+
+		return render_template("discussion.html", **templateData)
 
 	else:
 		# render the template
