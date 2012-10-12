@@ -68,7 +68,7 @@ def addprompt():
 @app.route("/like", methods=['POST'])
 def like():
 	if request.method == "POST":
-		responseID = request.form.get('id','none')
+		responseID = request.form.get('r','none')
 		like_response = models.Prompt.Response.objects.get(response=responseID)
 		like_response.update(inc__likes=1)
 		return redirect('/')

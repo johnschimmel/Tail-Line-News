@@ -9,12 +9,13 @@
 
 	<!-- left column -->
 	<div class="span12">
+
 		{% for thisPrompt in prompts %}
-		<h1>{{thisPrompt.promptText}}</h1>
 		<form method="POST" action="/">
-		<input type="text" name="response">
+		<p class="prompt">{{thisPrompt.promptText}} <input type="text" id="response" name="response" class="blank">.</p>
 		<input type="hidden" name="id" value="{{thisPrompt.id}}">
 		<button type="submit" class="btn btn-primary">Submit</button>
+		<script>document.getElementById('response').focus()</script>
 		</form>
 		{% for thisResponse in thisPrompt.responses %}
 		<div class="span4">

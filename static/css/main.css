@@ -9,11 +9,47 @@ span.label a {
 	color:#fff;
 }
 
+.prompt {
+	font-size: 70pt;
+	line-height: 70pt;
+}
 
 
+input.blank {  
+    padding-bottom: 15px;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    color: #333; 
+    border-bottom-width: 3px;
+    border-bottom-color: #000000; 
+    height: 90px;
+    font-size: 70pt;
+    line-height: 70pt;
+    width: 400px; 
+    background: #FFFFFF;  
+  -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(82, 168, 236, 0.6);
+ } 
 
-
-
+input.blank:focus {  
+    padding-bottom: 15px;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    color: #333; 
+    border-bottom-width: 3px;
+    border-bottom-color: #000000; 
+    height: 90px;
+    font-size: 70pt;
+    line-height: 70pt;
+    width: 400px; 
+    background: #FFFFFF;  
+  -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(82, 168, 236, 0.6);
+ } 
 
 
 
