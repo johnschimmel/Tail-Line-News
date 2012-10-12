@@ -51,7 +51,7 @@ def index():
 		return render_template("main.html", **templateData)
 
 
-@app.route("/addprompt", methods=['GET','POST'])
+@app.route("/prompts", methods=['GET','POST'])
 def addprompt():
 	
 	if request.method == "POST":
@@ -62,8 +62,10 @@ def addprompt():
 		return redirect('/')
 
 	else:
-		# render the template
-		return render_template("newprompt.html")
+		templateData = {
+			'prompts' : models.Prompt.objects()
+		}
+		return render_template("newprompt.html", **templateData)
 
 @app.route("/thumb", methods=['POST'])
 def thumb():

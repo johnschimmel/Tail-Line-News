@@ -6,18 +6,24 @@
 
 
 <div class="row">
-
-	<!-- left column -->
-	<div class="span12">
-		<div class="span1">
+		<div class="span12">
+			<h2>Add New Prompt</h2>
+			The blank is always at the end of the prompt. Don't add a space/period/whatever after the last word of the prompt.
 			<form method="POST" action="">
-				<input type="text" name="prompt" size="60">
-				<button type="submit" class="btn btn-mini">Add</i></button>
+				<input type="text" name="prompt" size="60"><button type="submit" class="btn">Add</i></button>
 			</form>
 		</div>
-	
-	</div>	
+</div>
 
+<div class="row">
+	<div class="span12">
+		<h2>All Prompts</h2>
+		{% for prompt in prompts %}
+
+			{{prompt.promptText}} ____________ .
+
+		{% endfor %}
+	</div>
 </div>
 
 {% endblock %}

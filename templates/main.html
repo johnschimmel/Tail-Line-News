@@ -19,15 +19,16 @@
 		</form>
 		{% for thisResponse in thisPrompt.responses %}
 		<div class="span4">
-			<p>{{ thisResponse.responseText }}
-			<i class="icon-thumbs-up"></i>{{thisResponse.likes}}</p>
-		<div class="btn-group btn-group-vertical">
 			<form method="POST" action="/thumb">
-				<input type="hidden" name="id" value="{{thisPrompt.id}}">
+				<div class="btn-group" style="float:left;">
+				<button type="submit" name="do" value="like" class="btn btn-mini"><i class="icon-thumbs-up"></i></button><button type="submit" name="do" value="dislike" class="btn btn-mini" style="margin-right: 8px;"><i class="icon-thumbs-down"></i></button>
+				</div><input type="hidden" name="id" value="{{thisPrompt.id}}">
 				<input type="hidden" name="response" value="{{ thisResponse.responseText }}">
-				<button type="submit" name="do" value="like" class="btn btn-mini"><i class="icon-thumbs-up"></i></button><button type="submit" name="do" value="dislike" class="btn btn-mini"><i class="icon-thumbs-down"></i></button>
-			</form>
-		</div>
+					<p style="float:left;"> {{ thisResponse.responseText }}
+			<i class="icon-thumbs-up"></i> {{thisResponse.likes}}</p>
+		</form>
+
+
 		</div>
 		{% endfor %}
 		{% endfor %}
